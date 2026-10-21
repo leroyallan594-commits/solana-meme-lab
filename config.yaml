@@ -1,0 +1,46 @@
+# Starting guesses only. Review logged results before changing these.
+chain: solana
+
+hard_filters:
+  min_liquidity_usd: 15000
+  max_top10_holders_pct: 25
+  max_single_wallet_pct: 5
+  max_cluster_pct: 15
+  min_lp_locked_or_burned_pct: 80
+  pair_age_minutes: [5, 120]
+  require_mint_authority_revoked: true
+  require_freeze_authority_revoked: true
+  require_lp_locked_or_burned: true
+  # RugCheck's report has no deployer rug-history count, so this can never be verified positively.
+  # false = shown as ADVISORY on alerts (rugged flag and creator-rug risk names are still hard rejects).
+  # true  = every token stays INCOMPLETE and no alert will ever fire.
+  require_creator_history_clear: false
+  require_cluster_data: true
+
+score_weights:
+  holder_growth: 30
+  organic_buying: 20
+  volume_trend: 20
+  distribution: 10
+  price_behavior: 10
+  social: 10
+
+score_thresholds:
+  watchlist: 70
+  strong: 85
+
+alerts:
+  cooldown_minutes: 60
+  daily_cap: 25
+  max_candidates_per_scan: 15
+  max_tracked_tokens: 15
+
+exits:
+  take_profit_multiples: [2, 3, 5, 10]
+  stop_loss_pct: 40
+  rug_liquidity_drop_pct: 30
+
+providers:
+  dexscreener_base_url: https://api.dexscreener.com
+  rugcheck_base_url: https://api.rugcheck.xyz/v1
+  solana_rpc_url: https://api.mainnet-beta.solana.com
